@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 
-#include "uioctl.h"
+#include "unionfs.h"
 
 
 static void print_help(char* progname) {
@@ -45,7 +45,6 @@ int main(int argc, char **argv) {
 	int opt;
 	const char* argument_param;
 	int debug_on_off;
-	int ioctl_res;
 	while ((opt = getopt(argc, argv, "d:p:")) != -1) {
 		switch (opt) {
 		case 'p':
@@ -62,12 +61,6 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 
-			ioctl_res = ioctl(fd, UNIONFS_SET_DEBUG_FILE, argument_param);
-			if (ioctl_res == -1) {
-				fprintf(stderr, "debug-file ioctl failed: %s\n",
-					strerror(errno) );
-				exit(1);
-			}
 			break;
 		case 'd':
 			argument_param = optarg;
@@ -89,12 +82,6 @@ int main(int argc, char **argv) {
 				exit(1);
 			}
 
-			ioctl_res = ioctl(fd, UNIONFS_ONOFF_DEBUG, &debug_on_off);
-			if (ioctl_res == -1) {
-				fprintf(stderr, "debug-on/off ioctl failed: %s\n",
-					strerror(errno) );
-				exit(1);
-			}
 			break;
 		default:
 			fprintf(stderr, "Unhandled option %c given.\n", opt);
