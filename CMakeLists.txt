@@ -1,6 +1,6 @@
 project(unionfs-fuse C)
 
-cmake_minimum_required(VERSION 2.0)
+cmake_minimum_required(VERSION 3.5)
 INCLUDE (CheckIncludeFiles)
 
 # Set a default build type for single-configuration
